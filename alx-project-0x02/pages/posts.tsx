@@ -1,35 +1,24 @@
 // Posts component
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "@/components/layout/Header";
 import PostCard from "@/components/common/PostCard";
-
+import { GetStaticProps } from "next";
 
 // API Response
-interface APIResponse {
+interface Post {
   id: number;
   title: string;
-  content: string;
+  body: string;
   userId: number;
 }
-const Post: React.FC = () => {
-  const [posts, setPosts] = useState<APIResponse[]>([]);
 
-  // Fetch posts from API
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-        const data: APIResponse[] = await response.json();
-        setPosts(data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
+// component props interface
+interface Props {
+  posts: Post[];
+}
 
-    fetchPosts();
-  }, []);
-
+const Posts: React.FC<Props> = ({ posts }) => {
   return (
     <div>
       <Header />
@@ -40,7 +29,7 @@ const Post: React.FC = () => {
             <PostCard
               key={post.id}
               title={post.title}
-              content={post.content}
+              content={post.body}
               userId={post.userId}
             />
           ))}
@@ -50,4 +39,11 @@ const Post: React.FC = () => {
   );
 };
 
-export default Post;
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts")
+  const posts = await res.json();
+
+  return { props: { posts } };
+};
+
+export default Posts;
