@@ -24,6 +24,8 @@ const Header: React.FC = () => {
           className={isActive("/about") ? activeStyle : inactiveStyle}>About</Link>
         <Link href="/posts"
           className={isActive("/posts") ? activeStyle : inactiveStyle}>Posts</Link>
+        <Link href="/users"
+          className={isActive("/users") ? activeStyle : inactiveStyle}>Users</Link>
       </nav>
     </header>
   );

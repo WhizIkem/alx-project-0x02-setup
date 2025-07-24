@@ -26,3 +26,15 @@ export interface PostProps {
   content: string;
   userId: number;
 }
+
+// User Props
+export interface UserProps {
+  id: number;
+  name: string;
+  email: string;
+  address: {
+    street: string;
+    city: string;
+    zipcode: string;
+  };
+}
