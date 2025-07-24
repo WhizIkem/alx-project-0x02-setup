@@ -32,11 +32,13 @@ const Users: React.FC<Props> = ({ users }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export async function getStaticProps() {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const users = await res.json();
   return {
-    props: { users },
+    props: {
+      users,
+    },
   };
 };
 
